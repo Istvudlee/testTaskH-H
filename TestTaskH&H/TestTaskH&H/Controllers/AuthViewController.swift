@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  AuthViewController.swift
 //  TestTaskH&H
 //
 //  Created by Анатолий Оруджев on 18.05.2020.
@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import VKSdkFramework
 
-class ViewController: UIViewController {
+class AuthViewController: UIViewController {
     
     // MARK: - private props
     private lazy var buttonLogin: UIButton = {
@@ -24,10 +25,13 @@ class ViewController: UIViewController {
         return button
     }()
     
+    private var vkNetwork = VKNetworking.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureUI()
     }
+    
     // MARK: - private method
     private func configureUI() {
         view.backgroundColor = AppColors.white
@@ -39,10 +43,9 @@ class ViewController: UIViewController {
         buttonLogin.heightAnchor ~= 52
     }
     
+
     @objc private func tapButton() {
-        let vc = NewsLineViewController()
-        vc.modalPresentationStyle = .overFullScreen
-        self.present(vc, animated: true, completion: nil)
+        vkNetwork.wakeUpSession()
     }
 }
 
