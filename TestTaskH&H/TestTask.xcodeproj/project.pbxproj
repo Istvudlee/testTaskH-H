@@ -18,6 +18,8 @@
 		B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526A2F72472ECF700CEC13C /* NewsLineViewController.swift */; };
 		B53397CE2473113B00ECCF7B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B526A2FA2472FC0B00CEC13C /* Alamofire.framework */; };
 		B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */; };
+		B57C30C5247A85A1005F543C /* NewsLineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C4247A85A1005F543C /* NewsLineTableView.swift */; };
+		B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */; };
 		B5C8A91A2473DC4E008863D8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A9192473DC4E008863D8 /* Kingfisher.framework */; };
 		B5F7058C24798F7200809422 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */; };
 		B5F7059024798FC000809422 /* SwiftyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7058F24798FC000809422 /* SwiftyVK.framework */; };
@@ -38,6 +40,8 @@
 		B526A2F72472ECF700CEC13C /* NewsLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineViewController.swift; sourceTree = "<group>"; };
 		B526A2FA2472FC0B00CEC13C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkDelegate.swift; sourceTree = "<group>"; };
+		B57C30C4247A85A1005F543C /* NewsLineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableView.swift; sourceTree = "<group>"; };
+		B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableViewCell.swift; sourceTree = "<group>"; };
 		B5C8A9192473DC4E008863D8 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
 		B5F7058F24798FC000809422 /* SwiftyVK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyVK.framework; path = Carthage/Build/iOS/SwiftyVK.framework; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 		B526A2F02472E17A00CEC13C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B57C30C6247A85A6005F543C /* Cells */,
+				B57C30C4247A85A1005F543C /* NewsLineTableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -136,6 +142,14 @@
 				B526A2FA2472FC0B00CEC13C /* Alamofire.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B57C30C6247A85A6005F543C /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -238,12 +252,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */,
 				B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */,
 				B526A2E02472DEB500CEC13C /* AuthViewController.swift in Sources */,
 				B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */,
 				B526A2DC2472DEB500CEC13C /* AppDelegate.swift in Sources */,
 				B5F705942479B61500809422 /* VKNetWorking.swift in Sources */,
 				B526A2F62472E88E00CEC13C /* Constant.swift in Sources */,
+				B57C30C5247A85A1005F543C /* NewsLineTableView.swift in Sources */,
 				B526A2DE2472DEB500CEC13C /* SceneDelegate.swift in Sources */,
 				B526A2F32472E3DF00CEC13C /* LayoutMagic.swift in Sources */,
 			);

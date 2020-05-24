@@ -19,7 +19,6 @@ class VKNetworking: NSObject {
     override init() {
         vkSdk = VKSdk.initialize(withAppId: appId)
         super.init()
-        print("VKSdk.initialize")
         vkSdk.register(self)
         vkSdk.uiDelegate = self
     }
@@ -57,7 +56,6 @@ extension VKNetworking: VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkShouldPresent(_ controller: UIViewController!) {
         print(#function)
-        delegate?.vkNetworkSchoudSchow(controller: controller)
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
