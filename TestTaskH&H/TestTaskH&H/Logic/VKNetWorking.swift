@@ -16,6 +16,9 @@ class VKNetworking: NSObject {
     private let appId = "7473474"
     private let vkSdk: VKSdk
     
+    var token: String? {
+        VKSdk.accessToken()?.accessToken
+    }
     override init() {
         vkSdk = VKSdk.initialize(withAppId: appId)
         super.init()
@@ -25,7 +28,7 @@ class VKNetworking: NSObject {
     weak var delegate: VKNetworkDelegate?
     
     func wakeUpSession(){
-        let scope = ["offline"]
+        let scope = ["wall", "friends"]
         VKSdk.wakeUpSession(scope) { [delegate] (state, error) in
             switch state {
             case .authorized:
@@ -45,7 +48,7 @@ extension VKNetworking: VKSdkDelegate, VKSdkUIDelegate {
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         print(#function)
         if result.token != nil {
-           delegate?.vkNetworkAuthorization()
+            delegate?.vkNetworkAuthorization()
         }
     }
     
@@ -56,6 +59,7 @@ extension VKNetworking: VKSdkDelegate, VKSdkUIDelegate {
     
     func vkSdkShouldPresent(_ controller: UIViewController!) {
         print(#function)
+        delegate?.vkNetworkSchoudSchow(controller: controller)
     }
     
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {

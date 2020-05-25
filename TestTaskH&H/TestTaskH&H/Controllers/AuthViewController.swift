@@ -17,11 +17,11 @@ class AuthViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Войти", for: .normal)
         button.setTitleColor(AppColors.white, for: .normal)
-        button.setTitleColor(AppColors.gray, for: .highlighted)
+        button.setTitleColor(AppColors.blueGrey, for: .highlighted)
         button.backgroundColor = AppColors.lightishBlue
         button.addTarget(self, action: #selector(tapButton), for: .touchUpInside)
         button.layer.cornerRadius = 10
-        button.titleLabel?.font = AppFonts.medium15
+        button.titleLabel?.font = AppFonts.bold15
         return button
     }()
     

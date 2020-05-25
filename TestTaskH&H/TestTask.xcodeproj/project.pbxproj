@@ -20,6 +20,8 @@
 		B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */; };
 		B57C30C5247A85A1005F543C /* NewsLineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C4247A85A1005F543C /* NewsLineTableView.swift */; };
 		B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */; };
+		B57C30CA247A861D005F543C /* NewsLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C9247A861D005F543C /* NewsLineModel.swift */; };
+		B57C30CD247ADB70005F543C /* GetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30CC247ADB70005F543C /* GetData.swift */; };
 		B5C8A91A2473DC4E008863D8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A9192473DC4E008863D8 /* Kingfisher.framework */; };
 		B5F7058C24798F7200809422 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */; };
 		B5F7059024798FC000809422 /* SwiftyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7058F24798FC000809422 /* SwiftyVK.framework */; };
@@ -42,6 +44,8 @@
 		B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkDelegate.swift; sourceTree = "<group>"; };
 		B57C30C4247A85A1005F543C /* NewsLineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableView.swift; sourceTree = "<group>"; };
 		B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableViewCell.swift; sourceTree = "<group>"; };
+		B57C30C9247A861D005F543C /* NewsLineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineModel.swift; sourceTree = "<group>"; };
+		B57C30CC247ADB70005F543C /* GetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetData.swift; sourceTree = "<group>"; };
 		B5C8A9192473DC4E008863D8 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
 		B5F7058F24798FC000809422 /* SwiftyVK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyVK.framework; path = Carthage/Build/iOS/SwiftyVK.framework; sourceTree = "<group>"; };
@@ -85,7 +89,7 @@
 			children = (
 				B526A2F12472E19100CEC13C /* Controllers */,
 				B526A2F02472E17A00CEC13C /* Views */,
-				B526A2EF2472E17100CEC13C /* Model */,
+				B57C30CB247ADB41005F543C /* Logic */,
 				B526A2F42472E3EA00CEC13C /* Helpers */,
 				B526A2DB2472DEB500CEC13C /* AppDelegate.swift */,
 				B526A2DD2472DEB500CEC13C /* SceneDelegate.swift */,
@@ -102,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */,
+				B57C30C9247A861D005F543C /* NewsLineModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -120,7 +125,6 @@
 			children = (
 				B526A2DF2472DEB500CEC13C /* AuthViewController.swift */,
 				B526A2F72472ECF700CEC13C /* NewsLineViewController.swift */,
-				B5F705932479B61500809422 /* VKNetWorking.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -150,6 +154,16 @@
 				B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		B57C30CB247ADB41005F543C /* Logic */ = {
+			isa = PBXGroup;
+			children = (
+				B526A2EF2472E17100CEC13C /* Model */,
+				B57C30CC247ADB70005F543C /* GetData.swift */,
+				B5F705932479B61500809422 /* VKNetWorking.swift */,
+			);
+			path = Logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -254,7 +268,9 @@
 			files = (
 				B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */,
 				B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */,
+				B57C30CD247ADB70005F543C /* GetData.swift in Sources */,
 				B526A2E02472DEB500CEC13C /* AuthViewController.swift in Sources */,
+				B57C30CA247A861D005F543C /* NewsLineModel.swift in Sources */,
 				B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */,
 				B526A2DC2472DEB500CEC13C /* AppDelegate.swift in Sources */,
 				B5F705942479B61500809422 /* VKNetWorking.swift in Sources */,

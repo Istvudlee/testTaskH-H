@@ -76,7 +76,9 @@ extension SceneDelegate: VKNetworkDelegate {
     func vkNetworkAuthorization() {
          print(#function)
         let newsController = NewsLineViewController()
-        window?.rootViewController = newsController
+        newsController.token = vkNetwork.token
+        let navigationController = UINavigationController(rootViewController: newsController)
+        window?.rootViewController = navigationController
     }
     
     func vkNetworkAuthorizationFailed() {
