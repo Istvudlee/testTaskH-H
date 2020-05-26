@@ -37,6 +37,7 @@ class GetData {
         }
     }
     
+
     func createGeneralDataForCell(modelItem: NewsLineItem, groups: [NewsLineGroups], profile: [NewsLineProfile]) -> NewsLineCellModel{
         
         let profileAndGroups: [GroupsAndProfile] = modelItem.sourceId > 0 ? profile : groups
@@ -44,8 +45,9 @@ class GetData {
         let sigleDataProfileOrGrops = profileAndGroups.first { groupsAndProfile in
             groupsAndProfile.id == positiveSourceId
         }
-        
+                
         let cell = NewsLineCellModel(name: sigleDataProfileOrGrops?.name ?? "",
+                                     date: createDate(modelItem),
                                      photo: sigleDataProfileOrGrops?.photo ?? "",
                                      text: modelItem.text ?? "",
                                      likes: modelItem.likes?.count ?? 0,
@@ -54,4 +56,15 @@ class GetData {
         
         return cell
     }
+    
+    private func createDate(_ modelItem: NewsLineItem) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ru_Ru")
+        dateFormatter.dateFormat = "d MMM 'в' HH:mm"
+        
+        let date = Date(timeIntervalSince1970: modelItem.date ?? 0.0)
+        let dateString = dateFormatter.string(from: date)
+        return dateString
+    }
+    
 }

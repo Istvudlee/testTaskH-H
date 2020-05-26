@@ -36,7 +36,6 @@ class NewsLineTableViewCell: UITableViewCell {
         label.font = AppFonts.regular13
         label.textColor = AppColors.blueGrey
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "21.21.43"
         return label
     }()
     
@@ -81,6 +80,7 @@ class NewsLineTableViewCell: UITableViewCell {
                 schareView.setNumber(number: data.reposts)
                 commentView.setNumber(number: data.reposts)
                 browseView.setNumber(number: data.views)
+                dataLabel.text = data.date
             }
         }
     }

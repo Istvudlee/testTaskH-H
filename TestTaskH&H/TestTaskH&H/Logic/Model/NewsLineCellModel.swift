@@ -10,7 +10,8 @@ import Foundation
 
 struct NewsLineCellModel {
     var name: String
-    let photo: String
+    var date: String
+    var photo: String
     var text: String
     var likes: Int
     var reposts: Int

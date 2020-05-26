@@ -26,7 +26,7 @@ struct NewsLineModel:Decodable {
 
 struct NewsLineItem: Decodable {
     var sourceId: Int
-    var date: Int?
+    var date: Double?
     var text: String?
     var likes: CountPost?
     var reposts: CountPost?
