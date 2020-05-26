@@ -18,11 +18,12 @@ class NewsLineTableView: UIView {
         table.dataSource = self
         table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
+        table.showsHorizontalScrollIndicator = false
         return table
     }()
     
     // MARK: - public props
-    var data: [NewsLineItem]?
+    var data: [NewsLineCellModel]?
     
     override init(frame: CGRect) {
         super.init(frame:frame)

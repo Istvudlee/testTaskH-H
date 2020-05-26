@@ -14,11 +14,12 @@ struct AppColors {
     static let white: UIColor = .white
     static let black: UIColor = .black
     static let blueGrey = UIColor(named: "blueGrey")
+    static let veryLightBlue = UIColor(named: "veryLightBlue")
 }
 
 struct AppFonts {
-    static let bold15 = UIFont(name: "SFProText-Semibold", size: 15)
-    static let bold14 = UIFont(name: "SFProText-Semibold", size: 14)
-    static let regular13 = UIFont(name: "SFProText-Regular", size: 13)
-    static let regular14 = UIFont(name: "SFProText-Regular", size: 14)
+    static let bold15: UIFont = .systemFont(ofSize: 15, weight: .bold)
+    static let bold14: UIFont = .systemFont(ofSize: 14, weight: .bold)
+    static let regular13 : UIFont = .systemFont(ofSize: 13, weight: .regular)
+    static let regular14 : UIFont = .systemFont(ofSize: 14, weight: .regular)
 }

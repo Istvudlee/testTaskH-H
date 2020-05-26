@@ -18,11 +18,9 @@ class NewsLineViewController: UIViewController {
     // MARK: - public props
     var token: String?
     
-    var dataUser: [NewsLineItem]? {
+    var dataUser: [NewsLineCellModel]? {
         didSet {
             newsLineTableView.data = dataUser
-            newsLineTableView.reloadTable()
-            //             print(self.dataUser)
         }
     }
     
@@ -37,11 +35,10 @@ class NewsLineViewController: UIViewController {
     // MARK: - private method
     private func commonInit() {
         let filters = "post"
-        let idGroup = "ru.esquire"
-        getDataVK.getData(idGroup, filters: filters, token: token ?? "") { [weak self] data in
-            self?.dataUser = data.response.items
+        getDataVK.getData(filters, token: token ?? "") { [weak self] data in
+            self?.dataUser = data
+            self?.newsLineTableView.reloadTable()
         }
-        
     }
     private func configureUI() {
         view.addSubview(newsLineTableView.prepareForAutoLayout())

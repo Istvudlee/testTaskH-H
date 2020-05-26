@@ -17,6 +17,8 @@
 		B526A2F62472E88E00CEC13C /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526A2F52472E88E00CEC13C /* Constant.swift */; };
 		B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B526A2F72472ECF700CEC13C /* NewsLineViewController.swift */; };
 		B53397CE2473113B00ECCF7B /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B526A2FA2472FC0B00CEC13C /* Alamofire.framework */; };
+		B549678B247D5C5100089EA2 /* NewsLineCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549678A247D5C5100089EA2 /* NewsLineCellModel.swift */; };
+		B549678D247D8CD300089EA2 /* DetailPostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B549678C247D8CD300089EA2 /* DetailPostView.swift */; };
 		B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */; };
 		B57C30C5247A85A1005F543C /* NewsLineTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C4247A85A1005F543C /* NewsLineTableView.swift */; };
 		B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */; };
@@ -41,6 +43,8 @@
 		B526A2F52472E88E00CEC13C /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		B526A2F72472ECF700CEC13C /* NewsLineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineViewController.swift; sourceTree = "<group>"; };
 		B526A2FA2472FC0B00CEC13C /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
+		B549678A247D5C5100089EA2 /* NewsLineCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineCellModel.swift; sourceTree = "<group>"; };
+		B549678C247D8CD300089EA2 /* DetailPostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailPostView.swift; sourceTree = "<group>"; };
 		B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetworkDelegate.swift; sourceTree = "<group>"; };
 		B57C30C4247A85A1005F543C /* NewsLineTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableView.swift; sourceTree = "<group>"; };
 		B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,6 +111,7 @@
 			children = (
 				B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */,
 				B57C30C9247A861D005F543C /* NewsLineModel.swift */,
+				B549678A247D5C5100089EA2 /* NewsLineCellModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -116,6 +121,7 @@
 			children = (
 				B57C30C6247A85A6005F543C /* Cells */,
 				B57C30C4247A85A1005F543C /* NewsLineTableView.swift */,
+				B549678C247D8CD300089EA2 /* DetailPostView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -267,6 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */,
+				B549678D247D8CD300089EA2 /* DetailPostView.swift in Sources */,
 				B57C30C3247A74AA005F543C /* VKNetworkDelegate.swift in Sources */,
 				B57C30CD247ADB70005F543C /* GetData.swift in Sources */,
 				B526A2E02472DEB500CEC13C /* AuthViewController.swift in Sources */,
@@ -276,6 +283,7 @@
 				B5F705942479B61500809422 /* VKNetWorking.swift in Sources */,
 				B526A2F62472E88E00CEC13C /* Constant.swift in Sources */,
 				B57C30C5247A85A1005F543C /* NewsLineTableView.swift in Sources */,
+				B549678B247D5C5100089EA2 /* NewsLineCellModel.swift in Sources */,
 				B526A2DE2472DEB500CEC13C /* SceneDelegate.swift in Sources */,
 				B526A2F32472E3DF00CEC13C /* LayoutMagic.swift in Sources */,
 			);
