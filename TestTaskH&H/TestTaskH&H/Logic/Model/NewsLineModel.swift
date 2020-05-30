@@ -15,22 +15,31 @@ protocol GroupsAndProfile {
 }
 
 struct NewsLineModelResponse: Decodable {
-    var response: NewsLineModel
+    let response: NewsLineModel
 }
 
 struct NewsLineModel:Decodable {
-    var items: [NewsLineItem]
-    var groups: [NewsLineGroups]
-    var profiles: [NewsLineProfile]
+    let items: [NewsLineItem]
+    let groups: [NewsLineGroups]
+    let profiles: [NewsLineProfile]
+    let nextFrom: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case items
+        case groups
+        case profiles
+        case nextFrom = "next_from"
+    }
 }
 
 struct NewsLineItem: Decodable {
-    var sourceId: Int
-    var date: Double?
-    var text: String?
-    var likes: CountPost?
-    var reposts: CountPost?
-    var views: CountPost?
+    let sourceId: Int
+    let date: Double?
+    let text: String?
+    let likes: CountPost?
+    let reposts: CountPost?
+    let views: CountPost?
+    let attachments: [Attachments]?
     
     enum CodingKeys: String, CodingKey {
         case sourceId = "source_id"
@@ -39,14 +48,15 @@ struct NewsLineItem: Decodable {
         case likes
         case reposts
         case views
+        case attachments
     }
 }
 
 struct NewsLineProfile: Decodable, GroupsAndProfile {
-    var id: Int?
-    var firstName: String?
-    var lastName: String?
-    var photo: String?
+    let id: Int?
+    let firstName: String?
+    let lastName: String?
+    let photo: String?
     
     var name: String? {
         return "\(firstName ?? "") \(lastName ?? "")"
@@ -62,8 +72,8 @@ struct NewsLineProfile: Decodable, GroupsAndProfile {
 }
 
 struct NewsLineGroups: Decodable, GroupsAndProfile {
-    var id: Int?
-    var name: String?
+    let id: Int?
+    let name: String?
     let photo: String?
     
     enum CodingKeys: String, CodingKey {
@@ -74,6 +84,37 @@ struct NewsLineGroups: Decodable, GroupsAndProfile {
 }
 
 struct CountPost: Decodable {
-    var count: Int?
+    let count: Int?
 }
+
+struct Attachments: Decodable {
+    let photo: Photo?
+    let video: Video?
+}
+
+struct Photo: Decodable {
+    let sizes: [PhotoSizes]
+    
+    var url: String {
+        getTypeSizePhotoX().url
+    }
+    
+    private func getTypeSizePhotoX() -> PhotoSizes {
+        if let photoSize = sizes.first(where: { $0.type == "x" }) {
+            return photoSize
+        }
+        return PhotoSizes(type: "don't type", url: "don't url")
+    }
+}
+
+struct PhotoSizes: Decodable {
+    let type: String
+    let url: String
+}
+
+struct Video: Decodable {
+    let id: Int
+    let photo_640: String?
+}
+
 

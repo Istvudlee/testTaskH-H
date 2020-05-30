@@ -53,11 +53,9 @@ class NewsLineTableViewCell: UITableViewCell {
         let image = UIImageView()
         image.contentMode = .scaleToFill
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.layer.cornerRadius = 20
-        image.clipsToBounds = true
         return image
     }()
-    
+        
     private let wrapDetailPostView = UIView()
     private let lineView = UIView()
     
@@ -65,8 +63,6 @@ class NewsLineTableViewCell: UITableViewCell {
     private var schareView = DetailPostView(image: .shared)
     private var commentView = DetailPostView(image: .comment)
     private var browseView = DetailPostView(image: .view)
-    
-    
     
     var data: NewsLineCellModel? {
         didSet {
@@ -81,6 +77,14 @@ class NewsLineTableViewCell: UITableViewCell {
                 commentView.setNumber(number: data.reposts)
                 browseView.setNumber(number: data.views)
                 dataLabel.text = data.date
+                print("RR\(data.photPost.count)")
+                if !data.photPost.isEmpty {
+                   postImageView.kf.setImage(with: URL(string: data.photPost[0] ))
+                     postImageView.isHidden = false
+                } else {
+                    postImageView.isHidden = true
+                }
+               
             }
         }
     }

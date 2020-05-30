@@ -16,5 +16,6 @@ struct NewsLineCellModel {
     var likes: Int
     var reposts: Int
     var views: Int
+    var photPost: [String]
 }
 

@@ -10,6 +10,8 @@ import Foundation
 import Alamofire
 
 class GetData {
+    var arrayCells: [NewsLineCellModel] = []
+    
     func getData(_ filters: String, token: String,  completion: @escaping ([NewsLineCellModel]) -> Void) {
         let url = "https://api.vk.com/method/newsfeed.get?filters=\(filters)&access_token=\(token)&v=5.103"
         print(url)
@@ -18,41 +20,43 @@ class GetData {
         
         let requsetData = Alamofire.request(urlData)
         
-        requsetData.responseJSON { response in
-            
+        requsetData.responseJSON { [weak self] response in
+            guard let `self` = self else { return }
             switch response.result {
             case .success:
                 guard let dataUser = response.data else { return }
                 
-                let dataDecode = try! JSONDecoder().decode(NewsLineModelResponse.self, from: dataUser)
-                
-                let dataCells = dataDecode.response.items.map { newsLineItem  in
-                    self.createGeneralDataForCell(modelItem: newsLineItem, groups: dataDecode.response.groups, profile: dataDecode.response.profiles)
-                }
-                
-                completion(dataCells)
+                let dataDecode = try! JSONDecoder().decode(NewsLineModelResponse.self, from: dataUser) /// try ?
+
+                dataDecode.response.items.forEach( { newsLineItem  in
+                    if newsLineItem.sourceId < 0{
+                        self.arrayCells.append(self.createGeneralDataForCell(modelItem: newsLineItem, groups: dataDecode.response.groups))
+                    }
+
+                })
+                print(dataDecode.response.nextFrom)
+
+                completion(self.arrayCells)
             case .failure:
                 print(response.result.error.debugDescription)
             }
         }
     }
     
-
-    func createGeneralDataForCell(modelItem: NewsLineItem, groups: [NewsLineGroups], profile: [NewsLineProfile]) -> NewsLineCellModel{
-        
-        let profileAndGroups: [GroupsAndProfile] = modelItem.sourceId > 0 ? profile : groups
-        let positiveSourceId = modelItem.sourceId > 0 ? modelItem.sourceId : -modelItem.sourceId
+    
+    func createGeneralDataForCell(modelItem: NewsLineItem, groups: [NewsLineGroups]) -> NewsLineCellModel{
+        let profileAndGroups = groups
         let sigleDataProfileOrGrops = profileAndGroups.first { groupsAndProfile in
-            groupsAndProfile.id == positiveSourceId
+            groupsAndProfile.id == -modelItem.sourceId
         }
-                
+        
         let cell = NewsLineCellModel(name: sigleDataProfileOrGrops?.name ?? "",
                                      date: createDate(modelItem),
                                      photo: sigleDataProfileOrGrops?.photo ?? "",
                                      text: modelItem.text ?? "",
                                      likes: modelItem.likes?.count ?? 0,
                                      reposts: modelItem.reposts?.count ?? 0,
-                                     views: modelItem.views?.count ?? 0)
+                                     views: modelItem.views?.count ?? 0, photPost: getArrayPhoto(modelItem))
         
         return cell
     }
@@ -67,4 +71,11 @@ class GetData {
         return dateString
     }
     
+    private func getArrayPhoto(_ modelItem: NewsLineItem) -> [String] {
+        let attach = modelItem.attachments ?? []
+        let array = attach.map({ attachments in
+            attachments.photo?.url ?? ""
+        })
+        return array
+    }
 }
