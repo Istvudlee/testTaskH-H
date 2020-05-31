@@ -9,6 +9,8 @@
 import UIKit
 
 class PhotoNewsCollectionView: UICollectionView {
+    
+    var dataPhoto: [PhotosPostForCellModel]?
 
      init() {
         let layout = UICollectionViewFlowLayout()
@@ -17,6 +19,7 @@ class PhotoNewsCollectionView: UICollectionView {
         delegate = self
         dataSource = self
         register(PhotoNewsCollectionViewCell.self, forCellWithReuseIdentifier: PhotoNewsCollectionViewCell.reuseIdentifier)
+        
     }
     
     
@@ -31,16 +34,20 @@ class PhotoNewsCollectionView: UICollectionView {
     }
     
 }
-extension PhotoNewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource {
+extension PhotoNewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return dataPhoto?.count ?? 2
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotoNewsCollectionViewCell.reuseIdentifier, for: indexPath) as? PhotoNewsCollectionViewCell else { return UICollectionViewCell() }
         
+        cell.addPhoto(urlImage: dataPhoto?[indexPath.row].url ?? "")
+        
         return cell
     }
     
-    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: 0, height: 0)
+//    }
 }

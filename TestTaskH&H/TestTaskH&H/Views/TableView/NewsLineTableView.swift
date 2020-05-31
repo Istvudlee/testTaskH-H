@@ -16,6 +16,7 @@ class NewsLineTableView: UIView {
         table.register(NewsLineTableViewCell.self,
                        forCellReuseIdentifier: NewsLineTableViewCell.reuseIdentifier)
         table.dataSource = self
+        table.delegate = self
         table.translatesAutoresizingMaskIntoConstraints = false
         table.separatorStyle = .none
         table.showsHorizontalScrollIndicator = false
@@ -46,7 +47,7 @@ class NewsLineTableView: UIView {
     
 }
 
-extension NewsLineTableView: UITableViewDataSource {
+extension NewsLineTableView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 1
     }
@@ -61,6 +62,10 @@ extension NewsLineTableView: UITableViewDataSource {
         }
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return data?[indexPath.row].sizes.fullHeight ?? 0
     }
 }
 

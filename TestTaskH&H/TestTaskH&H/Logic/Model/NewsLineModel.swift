@@ -99,17 +99,27 @@ struct Photo: Decodable {
         getTypeSizePhotoX().url
     }
     
+    var width: Int {
+        getTypeSizePhotoX().width
+    }
+    
+    var heigt: Int {
+        getTypeSizePhotoX().height
+    }
+    
     private func getTypeSizePhotoX() -> PhotoSizes {
         if let photoSize = sizes.first(where: { $0.type == "x" }) {
             return photoSize
-        }
-        return PhotoSizes(type: "don't type", url: "don't url")
+        } 
+        return PhotoSizes(type: "don't type", url: "don't url", width: 0, height: 0)
     }
 }
 
 struct PhotoSizes: Decodable {
     let type: String
     let url: String
+    let width: Int
+    let height: Int
 }
 
 struct Video: Decodable {

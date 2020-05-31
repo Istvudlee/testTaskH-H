@@ -11,6 +11,7 @@ import Alamofire
 
 class GetData {
     var arrayCells: [NewsLineCellModel] = []
+    var calculate: CalculateCellSize = CalculateCellSize()
     
     func getData(_ filters: String, token: String,  completion: @escaping ([NewsLineCellModel]) -> Void) {
         let url = "https://api.vk.com/method/newsfeed.get?filters=\(filters)&access_token=\(token)&v=5.103"
@@ -34,8 +35,6 @@ class GetData {
                     }
 
                 })
-                print(dataDecode.response.nextFrom)
-
                 completion(self.arrayCells)
             case .failure:
                 print(response.result.error.debugDescription)
@@ -49,14 +48,16 @@ class GetData {
         let sigleDataProfileOrGrops = profileAndGroups.first { groupsAndProfile in
             groupsAndProfile.id == -modelItem.sourceId
         }
-        
+        let firstphoto = getPhoto(modelItem)
+        let sizes = calculate.getSize(modelItem.text, images: firstphoto)
         let cell = NewsLineCellModel(name: sigleDataProfileOrGrops?.name ?? "",
                                      date: createDate(modelItem),
                                      photo: sigleDataProfileOrGrops?.photo ?? "",
                                      text: modelItem.text ?? "",
                                      likes: modelItem.likes?.count ?? 0,
                                      reposts: modelItem.reposts?.count ?? 0,
-                                     views: modelItem.views?.count ?? 0, photPost: getArrayPhoto(modelItem))
+                                     views: modelItem.views?.count ?? 0, photPost: firstphoto,
+                                     sizes: sizes)
         
         return cell
     }
@@ -77,5 +78,18 @@ class GetData {
             attachments.photo?.url ?? ""
         })
         return array
+    }
+    
+    private func getPhoto(_ modelItem: NewsLineItem) -> [PhotosPostForCellModel] {
+        guard let attachments = modelItem.attachments else { return [] }
+        
+        return attachments.compactMap { attachment in
+            guard let photoPost = attachment.photo else { return nil }
+            return PhotosPostForCellModel(url: photoPost.url, width: photoPost.width, height: photoPost.heigt)
+        }
+        
+//        print(firstPhoto.width , firstPhoto.heigt)
+        
+//        return PhotosPostForCellModel(url: firstPhoto.url, width: firstPhoto.width, height: firstPhoto.heigt)
     }
 }

@@ -30,8 +30,8 @@ class NewsLineTableViewCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private let dataLabel: UILabel = {
+        
+    private let dateLabel: UILabel = {
         let label = UILabel()
         label.font = AppFonts.regular13
         label.textColor = AppColors.blueGrey
@@ -43,7 +43,6 @@ class NewsLineTableViewCell: UITableViewCell {
         let label = UILabel()
         label.font = AppFonts.regular14
         label.textColor = AppColors.black
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
         return label
@@ -51,12 +50,15 @@ class NewsLineTableViewCell: UITableViewCell {
     
     private var postImageView: UIImageView = {
         let image = UIImageView()
-        image.contentMode = .scaleToFill
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-        
+    
+    private var photoCollection = PhotoNewsCollectionView()
+    
     private let wrapDetailPostView = UIView()
+    private let wrapPhotoView = UIView()
+    private let wrapTopView = UIView()
+
     private let lineView = UIView()
     
     private var likeView = DetailPostView(image: .like)
@@ -76,41 +78,42 @@ class NewsLineTableViewCell: UITableViewCell {
                 schareView.setNumber(number: data.reposts)
                 commentView.setNumber(number: data.reposts)
                 browseView.setNumber(number: data.views)
-                dataLabel.text = data.date
-                print("RR\(data.photPost.count)")
-                if !data.photPost.isEmpty {
-                   postImageView.kf.setImage(with: URL(string: data.photPost[0] ))
-                     postImageView.isHidden = false
-                } else {
+                dateLabel.text = data.date
+                if let image = data.photPost.first, data.photPost.count == 1{
+                    postImageView.isHidden = false
+                    photoCollection.isHidden = true
+                    postImageView.kf.setImage(with: URL(string: image.url ))
+                    postImageView.frame = data.sizes.imageFrame
+                    
+                } else if  data.photPost.count > 1{
+                    photoCollection.frame = data.sizes.imageFrame
                     postImageView.isHidden = true
+                    photoCollection.isHidden = false
+                    photoCollection.dataPhoto = data.photPost
                 }
-               
+                postTextLabel.frame = data.sizes.textFrame
             }
         }
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
         configureUI()
     }
     
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
-//        imgTableCell.image = nil
+        postImageView.image = nil
     }
     
     // MARK: - private method
@@ -118,35 +121,34 @@ class NewsLineTableViewCell: UITableViewCell {
         backgroundColor = AppColors.white
         selectionStyle = .none
         
-        addSubview(logoImage)
-        addSubview(titleGroupLabel)
-        addSubview(dataLabel)
+        addSubview(wrapTopView.prepareForAutoLayout())
         addSubview(postTextLabel)
         addSubview(postImageView)
+        addSubview(photoCollection)
         addSubview(wrapDetailPostView.prepareForAutoLayout())
+
         
-        logoImage.leadingAnchor ~= leadingAnchor + 18
-        logoImage.topAnchor ~= topAnchor + 15
+        wrapTopView.addSubview(logoImage)
+        wrapTopView.addSubview(titleGroupLabel)
+        wrapTopView.addSubview(dateLabel)
+        
+        wrapTopView.pinToSuperview([.left, .right])
+        wrapTopView.topAnchor ~= topAnchor + 15
+        
+        logoImage.leadingAnchor ~= wrapTopView.leadingAnchor + 18
+        logoImage.topAnchor ~= wrapTopView.topAnchor
         logoImage.widthAnchor ~= 40
         logoImage.heightAnchor ~= 40
+        logoImage.bottomAnchor ~= wrapTopView.bottomAnchor
         
         titleGroupLabel.leadingAnchor ~= logoImage.trailingAnchor + 12
         titleGroupLabel.topAnchor ~= logoImage.topAnchor
-        titleGroupLabel.trailingAnchor ~= trailingAnchor - 10
+        titleGroupLabel.trailingAnchor ~= wrapTopView.trailingAnchor - 10
         
-        dataLabel.leadingAnchor ~=  titleGroupLabel.leadingAnchor
-        dataLabel.topAnchor ~= titleGroupLabel.bottomAnchor + 5
-        
-        postTextLabel.topAnchor ~= dataLabel.bottomAnchor + 15
-        postTextLabel.leadingAnchor ~= logoImage.leadingAnchor
-        postTextLabel.trailingAnchor ~= trailingAnchor - 38
-        
-        postImageView.topAnchor ~= postTextLabel.bottomAnchor + 15
-        postImageView.pinToSuperview([.left, .right])
-        postImageView.heightAnchor ~= 274
+        dateLabel.leadingAnchor ~=  titleGroupLabel.leadingAnchor
+        dateLabel.topAnchor ~= titleGroupLabel.bottomAnchor + 5
         
         wrapDetailPostView.pinEdgesToSuperviewEdges(excluding: .top)
-        wrapDetailPostView.topAnchor ~= postImageView.bottomAnchor
         wrapDetailPostView.heightAnchor ~= 46
         
         wrapDetailPostView.addSubview(likeView.prepareForAutoLayout())
@@ -171,6 +173,7 @@ class NewsLineTableViewCell: UITableViewCell {
         lineView.backgroundColor = AppColors.veryLightBlue
         lineView.heightAnchor ~= 1
     }
+    
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {

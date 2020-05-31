@@ -7,6 +7,13 @@
 //
 
 import Foundation
+import UIKit
+
+protocol CellSizesProtocol {
+    var textFrame: CGRect { get }
+    var imageFrame: CGRect { get }
+    var fullHeight: CGFloat { get }
+}
 
 struct NewsLineCellModel {
     var name: String
@@ -16,6 +23,18 @@ struct NewsLineCellModel {
     var likes: Int
     var reposts: Int
     var views: Int
-    var photPost: [String]
+    var photPost: [PhotosPostForCellModel]
+    var sizes: CellSizesProtocol
 }
 
+struct PhotosPostForCellModel {
+    var url: String
+    var width: Int
+    var height: Int
+}
+
+struct CellSizes: CellSizesProtocol {
+    var textFrame: CGRect
+    var imageFrame: CGRect
+    var fullHeight: CGFloat
+}

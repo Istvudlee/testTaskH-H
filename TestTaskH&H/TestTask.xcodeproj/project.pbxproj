@@ -26,6 +26,7 @@
 		B57C30C8247A85C4005F543C /* NewsLineTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */; };
 		B57C30CA247A861D005F543C /* NewsLineModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30C9247A861D005F543C /* NewsLineModel.swift */; };
 		B57C30CD247ADB70005F543C /* GetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57C30CC247ADB70005F543C /* GetData.swift */; };
+		B59801502482BB73003A60F2 /* CalculateCellSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B598014F2482BB73003A60F2 /* CalculateCellSize.swift */; };
 		B5C8A91A2473DC4E008863D8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A9192473DC4E008863D8 /* Kingfisher.framework */; };
 		B5F7058C24798F7200809422 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */; };
 		B5F7059024798FC000809422 /* SwiftyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7058F24798FC000809422 /* SwiftyVK.framework */; };
@@ -54,6 +55,7 @@
 		B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineTableViewCell.swift; sourceTree = "<group>"; };
 		B57C30C9247A861D005F543C /* NewsLineModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsLineModel.swift; sourceTree = "<group>"; };
 		B57C30CC247ADB70005F543C /* GetData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetData.swift; sourceTree = "<group>"; };
+		B598014F2482BB73003A60F2 /* CalculateCellSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateCellSize.swift; sourceTree = "<group>"; };
 		B5C8A9192473DC4E008863D8 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
 		B5F7058F24798FC000809422 /* SwiftyVK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyVK.framework; path = Carthage/Build/iOS/SwiftyVK.framework; sourceTree = "<group>"; };
@@ -161,7 +163,7 @@
 		B55184AD24825A7500FB5FBC /* TableView */ = {
 			isa = PBXGroup;
 			children = (
-				B57C30C6247A85A6005F543C /* Cells */,
+				B56693732483E82000FB20A4 /* Cells */,
 				B57C30C4247A85A1005F543C /* NewsLineTableView.swift */,
 			);
 			path = TableView;
@@ -184,10 +186,11 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		B57C30C6247A85A6005F543C /* Cells */ = {
+		B56693732483E82000FB20A4 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				B57C30C7247A85C4005F543C /* NewsLineTableViewCell.swift */,
+				B598014F2482BB73003A60F2 /* CalculateCellSize.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 				B57C30CD247ADB70005F543C /* GetData.swift in Sources */,
 				B526A2E02472DEB500CEC13C /* AuthViewController.swift in Sources */,
 				B57C30CA247A861D005F543C /* NewsLineModel.swift in Sources */,
+				B59801502482BB73003A60F2 /* CalculateCellSize.swift in Sources */,
 				B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */,
 				B526A2DC2472DEB500CEC13C /* AppDelegate.swift in Sources */,
 				B5F705942479B61500809422 /* VKNetWorking.swift in Sources */,
