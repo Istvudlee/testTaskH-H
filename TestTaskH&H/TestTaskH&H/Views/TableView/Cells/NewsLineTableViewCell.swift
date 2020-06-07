@@ -80,16 +80,19 @@ class NewsLineTableViewCell: UITableViewCell {
                 browseView.setNumber(number: data.views)
                 dateLabel.text = data.date
                 if let image = data.photPost.first, data.photPost.count == 1{
+                    let frame = data.sizes.imageFrame
                     postImageView.isHidden = false
-                    photoCollection.isHidden = true
+                    photoCollection.frame = CGRect.zero
                     postImageView.kf.setImage(with: URL(string: image.url ))
-                    postImageView.frame = data.sizes.imageFrame
+                    postImageView.frame = frame
                     
-                } else if  data.photPost.count > 1{
-                    photoCollection.frame = data.sizes.imageFrame
-                    postImageView.isHidden = true
-                    photoCollection.isHidden = false
+                } else if let image = data.photPost.first, data.photPost.count > 1{
+                    let frame = data.sizes.collectionFrame
+                    postImageView.frame = data.sizes.imageFrame
+                    postImageView.kf.setImage(with: URL(string: image.url ))
+                    photoCollection.frame = frame
                     photoCollection.dataPhoto = data.photPost
+                    postImageView.isHidden = false
                 }
                 postTextLabel.frame = data.sizes.textFrame
             }

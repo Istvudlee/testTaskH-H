@@ -69,12 +69,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 // MARK: - VKNetworkDelegate
 extension SceneDelegate: VKNetworkDelegate {
     func vkNetworkSchoudSchow(controller: UIViewController) {
-         print(#function)
         window?.rootViewController?.present(controller, animated: true, completion: nil)
     }
     
     func vkNetworkAuthorization() {
-         print(#function)
         let newsController = NewsLineViewController()
         newsController.token = vkNetwork.token
         let navigationController = UINavigationController(rootViewController: newsController)

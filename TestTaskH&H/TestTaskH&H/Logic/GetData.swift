@@ -12,8 +12,9 @@ import Alamofire
 class GetData {
     var arrayCells: [NewsLineCellModel] = []
     var calculate: CalculateCellSize = CalculateCellSize()
+    var onSuccessGetData: (([NewsLineCellModel]) -> Void)?
     
-    func getData(_ filters: String, token: String,  completion: @escaping ([NewsLineCellModel]) -> Void) {
+    func getData(_ filters: String, token: String) {
         let url = "https://api.vk.com/method/newsfeed.get?filters=\(filters)&access_token=\(token)&v=5.103"
         print(url)
         
@@ -35,7 +36,7 @@ class GetData {
                     }
 
                 })
-                completion(self.arrayCells)
+                self.onSuccessGetData?(self.arrayCells)
             case .failure:
                 print(response.result.error.debugDescription)
             }

@@ -14,6 +14,7 @@ class NewsLineViewController: UIViewController {
     // MARK: - private props
     private let getDataVK = GetData()
     private let newsLineTableView = NewsLineTableView()
+    private let filters = "post"
     
     // MARK: - public props
     var token: String?
@@ -34,14 +35,23 @@ class NewsLineViewController: UIViewController {
     
     // MARK: - private method
     private func commonInit() {
-        let filters = "post"
-        getDataVK.getData(filters, token: token ?? "") { [weak self] data in
+        getDataVK.onSuccessGetData = { [weak self] data in
             self?.dataUser = data
             self?.newsLineTableView.reloadTable()
+            self?.newsLineTableView.refreshControl.endRefreshing()
+        }
+        
+        getDataVK.getData(filters, token: token ?? "")
+        
+        newsLineTableView.onRefreshCall = { [weak self] in
+            self?.getDataVK.getData(self?.filters ?? "", token: self?.token ?? "")
         }
     }
+    
     private func configureUI() {
         view.addSubview(newsLineTableView.prepareForAutoLayout())
         newsLineTableView.pinEdgesToSuperviewEdges()
     }
+    
+   
 }

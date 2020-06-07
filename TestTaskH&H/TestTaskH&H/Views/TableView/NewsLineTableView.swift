@@ -25,6 +25,14 @@ class NewsLineTableView: UIView {
     
     // MARK: - public props
     var data: [NewsLineCellModel]?
+    let refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.addTarget(self, action: #selector(refreshAction), for: .valueChanged)
+        return refresh
+    }()
+    
+    // MARK: - closures
+    var onRefreshCall: (() -> Void)?
     
     override init(frame: CGRect) {
         super.init(frame:frame)
@@ -35,11 +43,18 @@ class NewsLineTableView: UIView {
     private func configureUI() {
         addSubview(tableView)
         tableView.pinEdgesToSuperviewEdges()
+        tableView.addSubview(refreshControl)
     }
+    
+    @objc private func refreshAction() {
+          onRefreshCall?()
+    }
+    
     // MARK: - publick method
     func reloadTable() {
         tableView.reloadData()
     }
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -66,6 +81,10 @@ extension NewsLineTableView: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return data?[indexPath.row].sizes.fullHeight ?? 0
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        
     }
 }
 

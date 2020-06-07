@@ -10,16 +10,26 @@ import UIKit
 
 class PhotoNewsCollectionView: UICollectionView {
     
-    var dataPhoto: [PhotosPostForCellModel]?
+    var dataPhoto: [PhotosPostForCellModel]? {
+        didSet {
+            self.reloadData()
+            contentOffset = CGPoint.zero
+        }
+    }
 
      init() {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-        super.init(frame: .zero, collectionViewLayout: layout)
+        let photoLayout = PhotoCollectionLayout()
+        super.init(frame: .zero, collectionViewLayout: photoLayout)
         delegate = self
         dataSource = self
         register(PhotoNewsCollectionViewCell.self, forCellWithReuseIdentifier: PhotoNewsCollectionViewCell.reuseIdentifier)
+        backgroundColor = AppColors.white
+        showsVerticalScrollIndicator = false
+        showsHorizontalScrollIndicator = false
         
+        if let photoLayout = collectionViewLayout as? PhotoCollectionLayout {
+            photoLayout.delegate = self
+        }
     }
     
     
@@ -36,7 +46,7 @@ class PhotoNewsCollectionView: UICollectionView {
 }
 extension PhotoNewsCollectionView: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return dataPhoto?.count ?? 2
+        return dataPhoto?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -47,7 +57,20 @@ extension PhotoNewsCollectionView: UICollectionViewDelegate, UICollectionViewDat
         return cell
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//        return CGSize(width: 0, height: 0)
-//    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: frame.width, height: frame.height)
+    }
+}
+
+extension PhotoNewsCollectionView: CollectionLayoutDelegate {
+    func collectionView(_ collectionView: UICollectionView, indexPath: IndexPath) -> CGSize {
+        
+        guard let photo = dataPhoto else { return CGSize(width: 0, height: 0)}
+        let width = photo[indexPath.row].width
+        let height = photo[indexPath.row].height
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    
 }

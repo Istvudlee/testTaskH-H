@@ -13,6 +13,7 @@ protocol CellSizesProtocol {
     var textFrame: CGRect { get }
     var imageFrame: CGRect { get }
     var fullHeight: CGFloat { get }
+    var collectionFrame: CGRect { get }
 }
 
 struct NewsLineCellModel {
@@ -37,4 +38,5 @@ struct CellSizes: CellSizesProtocol {
     var textFrame: CGRect
     var imageFrame: CGRect
     var fullHeight: CGFloat
+    var collectionFrame: CGRect
 }

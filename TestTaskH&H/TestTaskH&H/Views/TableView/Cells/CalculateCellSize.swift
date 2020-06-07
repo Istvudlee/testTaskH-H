@@ -10,9 +10,11 @@ import Foundation
 import UIKit
 
 struct Size: CellSizesProtocol {
+    var collectionFrame: CGRect
     var fullHeight: CGFloat
     var textFrame: CGRect
     var imageFrame: CGRect
+    
 }
 
 struct ConstansSizeCell {
@@ -45,22 +47,39 @@ class CalculateCellSize {
         let topImagePoint = postTextFrame.size == CGSize.zero ? ConstansSizeCell.postTextInsents.top : postTextFrame.maxY + ConstansSizeCell.postTextInsents.bottom
         
         var imageFrame = CGRect(origin: CGPoint(x: 0, y: topImagePoint), size: CGSize.zero)
+        var collectionFrame = CGRect()
         
         if let postImage = images?.first {
+            
             let relation = calculateRelation(width: postImage.width, height: postImage.height)
+            
             if images?.count == 1 {
-                 imageFrame.size = CGSize(width: screenWidth, height: CGFloat(screenWidth * relation))
+                imageFrame.size = CGSize(width: screenWidth, height: CGFloat(screenWidth * relation))
+                
+            } else {
+                var photos = [CGSize]()
+                
+                for photo in images ?? []{
+                    let photoSize = CGSize(width: CGFloat(photo.width), height: CGFloat(photo.height))
+                    photos.append(photoSize)
+                }
+                
+                let rowHeight = PhotoCollectionLayout.rowHeightCalculate(widthSuperView: screenWidth, arrayPhotos: photos)
+                
+                imageFrame.size = CGSize(width: screenWidth, height: CGFloat(screenWidth * relation))
+                collectionFrame = CGRect(origin: CGPoint(x: 0, y: imageFrame.maxY), size:CGSize(width: screenWidth, height: rowHeight!))
             }
         }
         
         // bottom frame
-        let bottonTop = max(postTextFrame.maxY, imageFrame.maxY)
+        let bottomPoint: CGFloat = (images?.count ?? 0) > 1 ? collectionFrame.maxY : imageFrame.maxY
+        let bottonTop = max(postTextFrame.maxY, bottomPoint)
         let bottomFrame = CGRect(origin: CGPoint(x: 0, y: bottonTop), size: CGSize(width: screenWidth, height: ConstansSizeCell.bottomViewHeight))
         
         // height cell
         let fullHeight = bottomFrame.maxY
         
-        return Size(fullHeight: fullHeight, textFrame: postTextFrame, imageFrame: imageFrame)
+        return Size(collectionFrame: collectionFrame, fullHeight: fullHeight, textFrame: postTextFrame, imageFrame: imageFrame)
     }
     
     func calculateRelation(width: Int, height: Int) -> CGFloat {
