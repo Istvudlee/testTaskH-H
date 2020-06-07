@@ -85,7 +85,6 @@ class NewsLineTableViewCell: UITableViewCell {
                     photoCollection.frame = CGRect.zero
                     postImageView.kf.setImage(with: URL(string: image.url ))
                     postImageView.frame = frame
-                    
                 } else if let image = data.photPost.first, data.photPost.count > 1{
                     let frame = data.sizes.collectionFrame
                     postImageView.frame = data.sizes.imageFrame

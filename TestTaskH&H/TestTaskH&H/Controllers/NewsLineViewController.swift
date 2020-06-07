@@ -41,10 +41,14 @@ class NewsLineViewController: UIViewController {
             self?.newsLineTableView.refreshControl.endRefreshing()
         }
         
-        getDataVK.getData(filters, token: token ?? "")
+        getDataVK.getData(token: token ?? "")
         
         newsLineTableView.onRefreshCall = { [weak self] in
-            self?.getDataVK.getData(self?.filters ?? "", token: self?.token ?? "")
+            self?.getDataVK.getData(token: self?.token ?? "", state: .dataNext)
+        }
+        
+        newsLineTableView.onGetNextPost = {  [weak self] in
+            self?.getDataVK.getData(token: self?.token ?? "", state: .dataNext)
         }
     }
     
@@ -53,5 +57,4 @@ class NewsLineViewController: UIViewController {
         newsLineTableView.pinEdgesToSuperviewEdges()
     }
     
-   
 }

@@ -8,18 +8,26 @@
 
 import Foundation
 import Alamofire
-
+enum ChoiceGetData {
+    case data
+    case dataNext
+}
 class GetData {
     var arrayCells: [NewsLineCellModel] = []
     var calculate: CalculateCellSize = CalculateCellSize()
     var onSuccessGetData: (([NewsLineCellModel]) -> Void)?
+    var response : NewsLineModel?
     
-    func getData(_ filters: String, token: String) {
-        let url = "https://api.vk.com/method/newsfeed.get?filters=\(filters)&access_token=\(token)&v=5.103"
-        print(url)
+    func getData(token: String, state: ChoiceGetData = .data) {
+        var params = ["filters": "post"]
+        params["v"] = APIVk.version
+        params["access_token"] = token
+
+        if state == .dataNext {
+            params["start_from"] = self.response?.nextFrom
+        }
         
-        guard let urlData = URL(string: url) else { return }
-        
+        let urlData = createURl(params: params)
         let requsetData = Alamofire.request(urlData)
         
         requsetData.responseJSON { [weak self] response in
@@ -28,15 +36,20 @@ class GetData {
             case .success:
                 guard let dataUser = response.data else { return }
                 
-                let dataDecode = try! JSONDecoder().decode(NewsLineModelResponse.self, from: dataUser) /// try ?
-
+                guard let dataDecode = try? JSONDecoder().decode(NewsLineModelResponse.self, from: dataUser) else { return }
+                
+                guard self.response?.nextFrom != dataDecode.response.nextFrom else { return }
+                self.response = dataDecode.response
+                
                 dataDecode.response.items.forEach( { newsLineItem  in
-                    if newsLineItem.sourceId < 0{
+                    if newsLineItem.sourceId == -29302425{
                         self.arrayCells.append(self.createGeneralDataForCell(modelItem: newsLineItem, groups: dataDecode.response.groups))
                     }
-
+                    
                 })
+                
                 self.onSuccessGetData?(self.arrayCells)
+                
             case .failure:
                 print(response.result.error.debugDescription)
             }
@@ -45,15 +58,15 @@ class GetData {
     
     
     func createGeneralDataForCell(modelItem: NewsLineItem, groups: [NewsLineGroups]) -> NewsLineCellModel{
-        let profileAndGroups = groups
-        let sigleDataProfileOrGrops = profileAndGroups.first { groupsAndProfile in
+        let arrGroups = groups
+        let singleDataGrops = arrGroups.first { groupsAndProfile in
             groupsAndProfile.id == -modelItem.sourceId
         }
         let firstphoto = getPhoto(modelItem)
         let sizes = calculate.getSize(modelItem.text, images: firstphoto)
-        let cell = NewsLineCellModel(name: sigleDataProfileOrGrops?.name ?? "",
+        let cell = NewsLineCellModel(name: singleDataGrops?.name ?? "",
                                      date: createDate(modelItem),
-                                     photo: sigleDataProfileOrGrops?.photo ?? "",
+                                     photo: singleDataGrops?.photo ?? "",
                                      text: modelItem.text ?? "",
                                      likes: modelItem.likes?.count ?? 0,
                                      reposts: modelItem.reposts?.count ?? 0,
@@ -63,6 +76,7 @@ class GetData {
         return cell
     }
     
+    // MARK: - private method
     private func createDate(_ modelItem: NewsLineItem) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "ru_Ru")
@@ -89,8 +103,17 @@ class GetData {
             return PhotosPostForCellModel(url: photoPost.url, width: photoPost.width, height: photoPost.heigt)
         }
         
-//        print(firstPhoto.width , firstPhoto.heigt)
+        //        print(firstPhoto.width , firstPhoto.heigt)
         
-//        return PhotosPostForCellModel(url: firstPhoto.url, width: firstPhoto.width, height: firstPhoto.heigt)
+    }
+    
+    private func createURl(params: [String: String]) -> URL {
+        var components = URLComponents()
+        components.scheme = APIVk.scheme
+        components.host = APIVk.host
+        components.path = APIVk.method
+        components.queryItems = params.map{ URLQueryItem(name: $0, value: $1) }
+        return components.url!
     }
 }
+

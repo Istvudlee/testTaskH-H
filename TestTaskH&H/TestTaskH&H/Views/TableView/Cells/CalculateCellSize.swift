@@ -57,6 +57,7 @@ class CalculateCellSize {
                 imageFrame.size = CGSize(width: screenWidth, height: CGFloat(screenWidth * relation))
                 
             } else {
+                // frame collection with image
                 var photos = [CGSize]()
                 
                 for photo in images ?? []{

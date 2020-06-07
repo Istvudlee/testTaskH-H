@@ -30,6 +30,7 @@
 		B59801502482BB73003A60F2 /* CalculateCellSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = B598014F2482BB73003A60F2 /* CalculateCellSize.swift */; };
 		B5BE3A85248B911D009869B0 /* CollectionLayoutDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BE3A84248B911D009869B0 /* CollectionLayoutDelegate.swift */; };
 		B5C8A91A2473DC4E008863D8 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A9192473DC4E008863D8 /* Kingfisher.framework */; };
+		B5E59BD4248D2CE700CE0B3E /* APIVk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E59BD3248D2CE700CE0B3E /* APIVk.swift */; };
 		B5F7058C24798F7200809422 /* VKSdkFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */; };
 		B5F7059024798FC000809422 /* SwiftyVK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7058F24798FC000809422 /* SwiftyVK.framework */; };
 		B5F705942479B61500809422 /* VKNetWorking.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F705932479B61500809422 /* VKNetWorking.swift */; };
@@ -62,6 +63,7 @@
 		B5BE3A84248B911D009869B0 /* CollectionLayoutDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionLayoutDelegate.swift; sourceTree = "<group>"; };
 		B5C8A9192473DC4E008863D8 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		B5C8A91D2473DC54008863D8 /* VKSdkFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VKSdkFramework.framework; path = Carthage/Build/iOS/VKSdkFramework.framework; sourceTree = "<group>"; };
+		B5E59BD3248D2CE700CE0B3E /* APIVk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIVk.swift; sourceTree = "<group>"; };
 		B5F7058F24798FC000809422 /* SwiftyVK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyVK.framework; path = Carthage/Build/iOS/SwiftyVK.framework; sourceTree = "<group>"; };
 		B5F705932479B61500809422 /* VKNetWorking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VKNetWorking.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 				B57C30C2247A74AA005F543C /* VKNetworkDelegate.swift */,
 				B57C30C9247A861D005F543C /* NewsLineModel.swift */,
 				B549678A247D5C5100089EA2 /* NewsLineCellModel.swift */,
+				B5E59BD3248D2CE700CE0B3E /* APIVk.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 				B57C30CA247A861D005F543C /* NewsLineModel.swift in Sources */,
 				B59801502482BB73003A60F2 /* CalculateCellSize.swift in Sources */,
 				B526A2F82472ECF700CEC13C /* NewsLineViewController.swift in Sources */,
+				B5E59BD4248D2CE700CE0B3E /* APIVk.swift in Sources */,
 				B526A2DC2472DEB500CEC13C /* AppDelegate.swift in Sources */,
 				B5F705942479B61500809422 /* VKNetWorking.swift in Sources */,
 				B526A2F62472E88E00CEC13C /* Constant.swift in Sources */,

@@ -8,12 +8,6 @@
 
 import Foundation
 
-protocol GroupsAndProfile {
-    var id: Int? { get }
-    var name: String? { get }
-    var photo: String? { get }
-}
-
 struct NewsLineModelResponse: Decodable {
     let response: NewsLineModel
 }
@@ -21,13 +15,11 @@ struct NewsLineModelResponse: Decodable {
 struct NewsLineModel:Decodable {
     let items: [NewsLineItem]
     let groups: [NewsLineGroups]
-    let profiles: [NewsLineProfile]
     let nextFrom: String?
     
     enum CodingKeys: String, CodingKey {
         case items
         case groups
-        case profiles
         case nextFrom = "next_from"
     }
 }
@@ -52,26 +44,7 @@ struct NewsLineItem: Decodable {
     }
 }
 
-struct NewsLineProfile: Decodable, GroupsAndProfile {
-    let id: Int?
-    let firstName: String?
-    let lastName: String?
-    let photo: String?
-    
-    var name: String? {
-        return "\(firstName ?? "") \(lastName ?? "")"
-    }
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case firstName = "first_name"
-        case lastName = "last_name"
-        case photo = "photo_100"
-    }
-
-}
-
-struct NewsLineGroups: Decodable, GroupsAndProfile {
+struct NewsLineGroups: Decodable {
     let id: Int?
     let name: String?
     let photo: String?

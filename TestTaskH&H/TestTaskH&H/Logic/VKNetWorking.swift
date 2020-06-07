@@ -13,18 +13,22 @@ class VKNetworking: NSObject {
     
     static let shared = VKNetworking()
     
+    // MARK: - private props
     private let appId = "7473474"
     private let vkSdk: VKSdk
     
+    // MARK: - public props
     var token: String? {
         VKSdk.accessToken()?.accessToken
     }
+    
     override init() {
         vkSdk = VKSdk.initialize(withAppId: appId)
         super.init()
         vkSdk.register(self)
         vkSdk.uiDelegate = self
     }
+    
     weak var delegate: VKNetworkDelegate?
     
     func wakeUpSession(){
@@ -44,6 +48,7 @@ class VKNetworking: NSObject {
     }
 }
 
+// MARK: - VKSdkDelegate, VKSdkUIDelegate
 extension VKNetworking: VKSdkDelegate, VKSdkUIDelegate {
     func vkSdkAccessAuthorizationFinished(with result: VKAuthorizationResult!) {
         print(#function)
@@ -65,5 +70,5 @@ extension VKNetworking: VKSdkDelegate, VKSdkUIDelegate {
     func vkSdkNeedCaptchaEnter(_ captchaError: VKError!) {
         print(#function)
     }
-
+    
 }
