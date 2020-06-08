@@ -68,7 +68,7 @@ class CalculateCellSize {
                 let rowHeight = PhotoCollectionLayout.rowHeightCalculate(widthSuperView: screenWidth, arrayPhotos: photos)
                 
                 imageFrame.size = CGSize(width: screenWidth, height: CGFloat(screenWidth * relation))
-                collectionFrame = CGRect(origin: CGPoint(x: 0, y: imageFrame.maxY), size:CGSize(width: screenWidth, height: rowHeight!))
+                collectionFrame = CGRect(origin: CGPoint(x: 0, y: imageFrame.maxY + 2), size:CGSize(width: screenWidth, height: rowHeight!))
             }
         }
         

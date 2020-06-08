@@ -150,7 +150,6 @@
 		B526A2F42472E3EA00CEC13C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B526A2F52472E88E00CEC13C /* Constant.swift */,
 				B526A2F22472E3DF00CEC13C /* LayoutMagic.swift */,
 			);
 			path = Helpers;
@@ -210,6 +209,7 @@
 				B526A2EF2472E17100CEC13C /* Model */,
 				B57C30CC247ADB70005F543C /* GetData.swift */,
 				B5F705932479B61500809422 /* VKNetWorking.swift */,
+				B526A2F52472E88E00CEC13C /* Constant.swift */,
 			);
 			path = Logic;
 			sourceTree = "<group>";

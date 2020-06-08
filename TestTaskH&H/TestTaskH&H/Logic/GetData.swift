@@ -115,5 +115,9 @@ class GetData {
         components.queryItems = params.map{ URLQueryItem(name: $0, value: $1) }
         return components.url!
     }
+    
+    private func getDataVideo() {
+        
+    }
 }
 

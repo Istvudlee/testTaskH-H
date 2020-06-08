@@ -84,7 +84,7 @@ extension NewsLineTableView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if scrollView.contentOffset.y > scrollView.contentSize.height / 1.2 {
+        if scrollView.contentOffset.y > scrollView.contentSize.height / 2 {
             onGetNextPost?()
         }
     }

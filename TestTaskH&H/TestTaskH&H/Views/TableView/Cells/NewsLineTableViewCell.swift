@@ -90,7 +90,9 @@ class NewsLineTableViewCell: UITableViewCell {
                     postImageView.frame = data.sizes.imageFrame
                     postImageView.kf.setImage(with: URL(string: image.url ))
                     photoCollection.frame = frame
-                    photoCollection.dataPhoto = data.photPost
+                    var arrPhotos = data.photPost
+                    arrPhotos.remove(at: 0)
+                    photoCollection.dataPhoto = arrPhotos
                     postImageView.isHidden = false
                 }
                 postTextLabel.frame = data.sizes.textFrame

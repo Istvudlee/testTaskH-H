@@ -29,6 +29,8 @@ class NewsLineViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = AppColors.white
         title = "Лента"
+        navigationController?.navigationBar.barTintColor = AppColors.lightishBlue
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: AppColors.white as UIColor]
         configureUI()
         commonInit()
     }
