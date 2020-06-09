@@ -46,7 +46,7 @@ class GetData {
                 
                 dataDecode.response.items.forEach( { newsLineItem  in
                     
-                    if newsLineItem.sourceId < 0{
+                    if newsLineItem.sourceId == -29302425{
                         self.arrayCells.append(self.createGeneralDataForCell(modelItem: newsLineItem, groups: dataDecode.response.groups))
                     }
                     
