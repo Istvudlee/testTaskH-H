@@ -17,12 +17,15 @@ class GetData {
     var calculate: CalculateCellSize = CalculateCellSize()
     var onSuccessGetData: (([NewsLineCellModel]) -> Void)?
     var response : NewsLineModel?
+    var token: String?
+    var videoPost: VideoResult?
     
     func getData(token: String, state: ChoiceGetData = .data) {
+        self.token = token
         var params = ["filters": "post"]
         params["v"] = APIVk.version
         params["access_token"] = token
-
+        
         if state == .dataNext {
             params["start_from"] = self.response?.nextFrom
         }
@@ -42,7 +45,8 @@ class GetData {
                 self.response = dataDecode.response
                 
                 dataDecode.response.items.forEach( { newsLineItem  in
-                    if newsLineItem.sourceId == -29302425{
+                    
+                    if newsLineItem.sourceId < 0{
                         self.arrayCells.append(self.createGeneralDataForCell(modelItem: newsLineItem, groups: dataDecode.response.groups))
                     }
                     
@@ -62,6 +66,13 @@ class GetData {
         let singleDataGrops = arrGroups.first { groupsAndProfile in
             groupsAndProfile.id == -modelItem.sourceId
         }
+        
+        if let video = getVideAttachment(modelItem) {
+            getDataVideo(token: token!, accessKey: video.accessKey ?? "" , ownerId: video.ownerId ?? 0 , idVideo: video.id ?? 0) { [weak self] videoData in
+                self?.videoPost = videoData
+            }
+        }
+        
         let firstphoto = getPhoto(modelItem)
         let sizes = calculate.getSize(modelItem.text, images: firstphoto)
         let cell = NewsLineCellModel(name: singleDataGrops?.name ?? "",
@@ -70,8 +81,10 @@ class GetData {
                                      text: modelItem.text ?? "",
                                      likes: modelItem.likes?.count ?? 0,
                                      reposts: modelItem.reposts?.count ?? 0,
-                                     views: modelItem.views?.count ?? 0, photPost: firstphoto,
-                                     sizes: sizes)
+                                     views: modelItem.views?.count ?? 0,
+                                     photPost: firstphoto,
+                                     video: videoPost ?? nil,
+                                     sizes: sizes )
         
         return cell
     }
@@ -87,13 +100,6 @@ class GetData {
         return dateString
     }
     
-    private func getArrayPhoto(_ modelItem: NewsLineItem) -> [String] {
-        let attach = modelItem.attachments ?? []
-        let array = attach.map({ attachments in
-            attachments.photo?.url ?? ""
-        })
-        return array
-    }
     
     private func getPhoto(_ modelItem: NewsLineItem) -> [PhotosPostForCellModel] {
         guard let attachments = modelItem.attachments else { return [] }
@@ -107,6 +113,13 @@ class GetData {
         
     }
     
+    private func getVideAttachment(_ modelItem: NewsLineItem) -> VideoModel? {
+        guard let video = modelItem.attachments?.first?.video else { return nil}
+        
+        return VideoModel(id: video.id, ownerId: video.ownerId, accessKey: video.accessKey)
+        
+    }
+    
     private func createURl(params: [String: String]) -> URL {
         var components = URLComponents()
         components.scheme = APIVk.scheme
@@ -116,8 +129,37 @@ class GetData {
         return components.url!
     }
     
-    private func getDataVideo() {
+    private func createUrlForVideo(params: [String: String]) -> URL {
+        var components = URLComponents()
+        components.scheme = APIVk.scheme
+        components.host = APIVk.host
+        components.path = APIVk.methodForVideo
+        components.queryItems = params.map{ URLQueryItem(name: $0, value: $1) }
+        return components.url!
+    }
+    
+    private func getDataVideo(token: String, accessKey: String, ownerId: Int, idVideo: Int, onSuccess: @escaping (VideoResult) -> Void?) {
+        var params = ["owner_id": "\(ownerId)"]
+        params["videos"] =  "\(ownerId)_\(idVideo)_\(accessKey)"
+        params["v"] = APIVk.version
+        params["access_token"] = token
         
+        let urlData = createUrlForVideo(params: params)
+        let requsetData = Alamofire.request(urlData)
+        
+        requsetData.responseJSON { (response) in
+            switch response.result {
+            case .success:
+                guard let dataUser = response.data else { return }
+                guard let dataDecode = try? JSONDecoder().decode(VideoResponse.self, from: dataUser) else { return }
+                
+                if let video = dataDecode.response.items.first {
+                    onSuccess(video)
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
 }
 

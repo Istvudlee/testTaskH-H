@@ -32,7 +32,7 @@ class VKNetworking: NSObject {
     weak var delegate: VKNetworkDelegate?
     
     func wakeUpSession(){
-        let scope = ["wall", "friends"]
+        let scope = ["wall", "friends", "video"]
         VKSdk.wakeUpSession(scope) { [delegate] (state, error) in
             switch state {
             case .authorized:

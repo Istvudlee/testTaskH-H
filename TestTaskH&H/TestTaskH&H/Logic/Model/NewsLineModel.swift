@@ -62,7 +62,7 @@ struct CountPost: Decodable {
 
 struct Attachments: Decodable {
     let photo: Photo?
-    let video: Video?
+    let video: VideoModel?
 }
 
 struct Photo: Decodable {
@@ -95,9 +95,30 @@ struct PhotoSizes: Decodable {
     let height: Int
 }
 
-struct Video: Decodable {
-    let id: Int
-    let photo_640: String?
+struct VideoModel: Decodable {
+    let id: Int?
+    let ownerId: Int?
+    let accessKey: String?
+
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case ownerId = "owner_id"
+        case accessKey = "access_key"
+    }
 }
 
+struct VideoResponse: Decodable {
+    let response: itemsVideo
+}
 
+struct itemsVideo: Decodable {
+    let items: [VideoResult]
+}
+
+struct VideoResult: Decodable {
+    let title: String?
+    let player: String?
+    let width: Int?
+    let height: Int?
+}

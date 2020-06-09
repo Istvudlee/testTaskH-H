@@ -14,7 +14,6 @@ class NewsLineViewController: UIViewController {
     // MARK: - private props
     private let getDataVK = GetData()
     private let newsLineTableView = NewsLineTableView()
-    private let filters = "post"
     
     // MARK: - public props
     var token: String?

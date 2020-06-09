@@ -25,6 +25,7 @@ struct NewsLineCellModel {
     var reposts: Int
     var views: Int
     var photPost: [PhotosPostForCellModel]
+    var video: VideoResult?
     var sizes: CellSizesProtocol
 }
 
